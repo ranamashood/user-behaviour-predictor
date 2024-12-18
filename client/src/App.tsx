@@ -17,6 +17,8 @@ function App() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setPrediction("");
+
     const { appUsage, screenTime, batteryDrain, appsCount, dataUsage } =
       formData;
 
