@@ -1,11 +1,16 @@
 import sys
 import pickle
 import numpy as np
+import ast
 
-model = pickle.load(open("../public/models/rf.pkl", "rb"))
-scaler = pickle.load(open("../public/models/scaler.pkl", "rb"))
+models_path = "./public/models"
+
+model = pickle.load(open(f"{models_path}/rf.pkl", "rb"))
+scaler = pickle.load(open(f"{models_path}/scaler.pkl", "rb"))
 
 request_data = sys.argv[1]
+
+request_data = ast.literal_eval(request_data)
 
 data = np.array(request_data).reshape(1, -1)
 
