@@ -30,36 +30,50 @@ function App() {
     setPrediction(response.data.prediction);
   };
 
+  const getRandomData = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/dataset/random`,
+    );
+
+    setFormData(response.data);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <TextField
           label="App Usage Time (min/day)"
           name="appUsage"
+          value={formData.appUsage}
           onChange={handleFieldChange}
         />
         <TextField
           label="Screen On Time (hours/day)"
           name="screenTime"
+          value={formData.screenTime}
           onChange={handleFieldChange}
         />
         <TextField
           label="Battery Drain (mAh/day)"
           name="batteryDrain"
+          value={formData.batteryDrain}
           onChange={handleFieldChange}
         />
         <TextField
           label="Number of Apps Installed"
           name="appsCount"
+          value={formData.appsCount}
           onChange={handleFieldChange}
         />
         <TextField
           label="Data Usage (MB/day)"
           name="dataUsage"
+          value={formData.dataUsage}
           onChange={handleFieldChange}
         />
 
-        <Button title="Predict" />
+        <Button title="Random row from dataset" onClick={getRandomData} />
+        <Button title="Predict" type="submit" />
       </form>
 
       <div>{prediction}</div>

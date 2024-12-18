@@ -1,10 +1,11 @@
 interface Props {
   label: string;
   name: string;
+  value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const TextField = ({ label, name, onChange }: Props) => {
+const TextField = ({ label, name, value, onChange }: Props) => {
   const labelId = label.toLowerCase().replace(/ /g, "-");
 
   return (
@@ -14,6 +15,7 @@ const TextField = ({ label, name, onChange }: Props) => {
         type="text"
         id={labelId}
         name={name}
+        value={value}
         onChange={onChange}
         required
       />
