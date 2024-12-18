@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import "dotenv/config";
 import { spawn } from "child_process";
+import chalk from "chalk";
 
 const PORT = process.env.PORT || 5000;
 
@@ -26,7 +27,7 @@ app.post("/dataset/predict", (req: Request, res: Response) => {
   });
 
   process.stderr.on("data", (data: Buffer) => {
-    console.error(data.toString());
+    console.error(chalk.red(data.toString()));
     error += data.toString();
   });
 
@@ -34,7 +35,7 @@ app.post("/dataset/predict", (req: Request, res: Response) => {
     if (code === 0) {
       res.send({ prediction: parseInt(response) });
     } else {
-      console.error(`Process exited with code ${code}`);
+      console.error(chalk.red(`Process exited with code ${code}`));
       res
         .status(500)
         .send({ error: { msg: "Model prediction gone wrong", desc: error } });
@@ -42,7 +43,7 @@ app.post("/dataset/predict", (req: Request, res: Response) => {
   });
 
   process.on("error", (err) => {
-    console.error(err);
+    console.error(chalk.red(err));
     res.status(500).send({ error: { msg: "Process not started", desc: err } });
   });
 });
