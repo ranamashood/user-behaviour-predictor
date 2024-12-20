@@ -173,9 +173,8 @@ Error generating stack: `+u.message+`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  max-height: 100vh;
+  padding: 30px 0;
 `,by=ot.div`
-  width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
