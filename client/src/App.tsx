@@ -104,11 +104,10 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  max-height: 100vh;
+  padding: 30px 0;
 `;
 
 const Container = styled.div`
-  width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
