@@ -37,6 +37,7 @@ const Label = styled.label`
   left: 15px;
   transform: translateY(-50%);
   transition: all 100ms;
+  cursor: text;
 `;
 
 const Input = styled.input`

@@ -5,10 +5,12 @@ import { IFormData } from "./models";
 import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 import theme from "./theme";
+import PredictionoMeter from "./components/PredictionoMeter";
 
 function App() {
   const [formData, setFormData] = useState<IFormData>({} as IFormData);
-  const [prediction, setPrediction] = useState<string>("");
+  const [prediction, setPrediction] = useState<number>(0);
+  const [isPredicting, setIsPredicting] = useState<boolean>(false);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,7 +21,8 @@ function App() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setPrediction("");
+    setPrediction(0);
+    setIsPredicting(true);
 
     const { appUsage, screenTime, batteryDrain, appsCount, dataUsage } =
       formData;
@@ -31,7 +34,8 @@ function App() {
       { data },
     );
 
-    setPrediction(response.data.prediction);
+    setPrediction(parseInt(response.data.prediction));
+    setIsPredicting(false);
   };
 
   const getRandomData = async () => {
@@ -46,6 +50,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <Wrapper>
         <Container>
+          <PredictionoMeter
+            prediction={prediction}
+            isPredicting={isPredicting}
+          />
+
           <Form onSubmit={handleSubmit}>
             <TextField
               label="App Usage Time (min/day)"
@@ -81,8 +90,6 @@ function App() {
             <Button title="Random row from dataset" onClick={getRandomData} />
             <Button title="Predict" type="submit" />
           </Form>
-
-          <div>{prediction}</div>
         </Container>
       </Wrapper>
     </ThemeProvider>
@@ -101,10 +108,15 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 500px;
+  width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Form = styled.form`
+  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 20px;
